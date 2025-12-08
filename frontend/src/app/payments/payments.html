@@ -1,0 +1,24 @@
+<div class="payment-container">
+  <h2>Finalizar Registro de Bar</h2>
+  
+  <div *ngIf="email; else errorTpl">
+    <p>Usuario: <strong>{{ email }}</strong></p>
+    <p>Total a pagar: <strong>10.00€</strong></p>
+
+    <div class="stripe-box">
+      <label>Tarjeta de Crédito / Débito</label>
+      <div id="card-element" class="field"></div>
+      <div id="card-errors" role="alert" class="error"></div>
+    </div>
+
+    <button (click)="iniciarPago()" [disabled]="isProcessing" class="btn-pay">
+      {{ isProcessing ? 'Procesando...' : 'Pagar 10.00€' }}
+    </button>
+
+    <div class="message" *ngIf="message">{{ message }}</div>
+  </div>
+
+  <ng-template #errorTpl>
+    <p class="error">No se ha encontrado información de validación válida.</p>
+  </ng-template>
+</div>

@@ -1,0 +1,50 @@
+<div class="login-container">
+  <div class="login-content">
+    <h1 class="login-title">Iniciar Sesión</h1>
+    <p class="login-subtitle">Accede a tu cuenta de Gramola</p>
+    
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+    
+    <form class="login-form" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email"
+          [(ngModel)]="email"
+          placeholder="tu@email.com"
+          required
+          class="form-control"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Tu contraseña"
+          required
+          class="form-control"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+        <span class="btn-icon">{{ isLoading ? '⏳' : '🔐' }}</span>
+        {{ isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>¿No tienes cuenta? <a [routerLink]="['/register']" class="link">Regístrate aquí</a></p>
+    </div>
+  </div>
+</div>

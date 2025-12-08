@@ -1,0 +1,111 @@
+<div class="register-container">
+  <div class="register-content">
+    <h2 class="register-title">Registro de Bar</h2>
+    <p class="register-subtitle">Completa los siguientes datos</p>
+
+    <!-- Mensaje de éxito -->
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <form class="register-form" (ngSubmit)="onRegister()">
+      <div class="form-group">
+        <label for="barName">Nombre del Bar</label>
+        <input 
+          type="text" 
+          id="barName" 
+          name="barName"
+          [(ngModel)]="barName"
+          placeholder="Nombre del bar" 
+          required 
+          class="form-control"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email"
+          [(ngModel)]="email"
+          placeholder="tu@email.com" 
+          required 
+          class="form-control"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="clientId">Client ID de Spotify</label>
+        <input 
+          type="text" 
+          id="clientId" 
+          name="clientId"
+          [(ngModel)]="clientId"
+          placeholder="Tu Client ID de Spotify" 
+          required 
+          class="form-control"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="clientSecret">Client Secret de Spotify</label>
+        <input 
+          type="text" 
+          id="clientSecret" 
+          name="clientSecret"
+          [(ngModel)]="clientSecret"
+          placeholder="Tu Client Secret" 
+          required 
+          class="form-control"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Contraseña" 
+          required 
+          class="form-control"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Contraseña</label>
+        <input 
+          type="password" 
+          id="confirmPassword" 
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirmar Contraseña" 
+          required 
+          class="form-control"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+        <span class="btn-icon">{{ isLoading ? '⏳' : '📝' }}</span>
+        {{ isLoading ? 'Registrando...' : 'Registrar' }}
+      </button>
+    </form>
+
+    <div class="register-footer">
+      <p>¿Ya tienes cuenta? <a [routerLink]="['/login']" class="link">Inicia sesión aquí</a></p>
+    </div>
+  </div>
+</div>

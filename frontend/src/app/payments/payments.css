@@ -1,0 +1,58 @@
+.payment-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.price {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.stripe-form-container {
+  margin-top: 20px;
+}
+
+#card-element {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#card-errors {
+  color: #fa755a;
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+.btn-primary, .btn-pay {
+  background-color: #5469d4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+.btn-primary:hover, .btn-pay:hover {
+  background-color: #4353a8;
+}
+
+.success-message {
+  color: green;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-top: 20px;
+}

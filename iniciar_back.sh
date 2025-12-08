@@ -1,0 +1,1 @@
+cd /home/pablo/Codigo/Gramola/backend && mvn clean compile spring-boot:run

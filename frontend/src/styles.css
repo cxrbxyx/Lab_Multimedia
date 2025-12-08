@@ -1,0 +1,33 @@
+/* ... (Mantén el código CSS anterior y añade esto al final) ... */
+
+/* Estilos de Validación */
+.input-error {
+  border-color: #ef4444 !important; /* Rojo intenso */
+  background-color: #fef2f2;
+}
+
+.text-error {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  text-align: left;
+}
+
+/* Modificación sutil para alertas */
+.alert-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #f87171;
+}
+
+/* Asegúrate de que no haya estilos que fuercen flex-direction: row */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+}
