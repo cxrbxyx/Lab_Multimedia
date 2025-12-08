@@ -1,1 +1,0 @@
-cd ~/Codigo/Gramola/frontend && ng serve
