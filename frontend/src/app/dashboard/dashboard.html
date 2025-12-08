@@ -1,1 +1,114 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>🎵 MusicLab</h1>
+    </div>
+    
+    <nav class="nav-menu">
+      <button (click)="changeView('home')" [class.active]="currentView === 'home'">
+        <span class="icon">🏠</span>
+        <span>Inicio</span>
+      </button>
+      <button (click)="changeView('search')" [class.active]="currentView === 'search'">
+        <span class="icon">🔍</span>
+        <span>Buscar</span>
+      </button>
+      <button (click)="changeView('library')" [class.active]="currentView === 'library'">
+        <span class="icon">📚</span>
+        <span>Tu biblioteca</span>
+      </button>
+    </nav>
+
+    <div class="playlists">
+      <button (click)="changeView('create-playlist')" class="create-playlist">
+        <span class="icon">➕</span>
+        <span>Crear playlist</span>
+      </button>
+      
+      <div class="playlist-list">
+        <!-- Aquí irán las playlists del usuario -->
+      </div>
+    </div>
+
+    <div class="user-profile">
+      <img [src]="user?.avatar || 'assets/default-avatar.png'" alt="Avatar">
+      <span>{{ user?.username }}</span>
+      <button (click)="logout()" class="logout-btn">Salir</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-header">
+      <h2>{{ currentView === 'home' ? 'Inicio' : currentView === 'search' ? 'Buscar' : 'Tu biblioteca' }}</h2>
+    </div>
+
+    <div class="content-body">
+      <!-- Home View -->
+      <div *ngIf="currentView === 'home'" class="home-view">
+        <section class="section">
+          <h3>Escuchado recientemente</h3>
+          <div class="track-grid">
+            <!-- Track cards -->
+          </div>
+        </section>
+
+        <section class="section">
+          <h3>Tus playlists</h3>
+          <div class="playlist-grid">
+            <!-- Playlist cards -->
+          </div>
+        </section>
+      </div>
+
+      <!-- Search View -->
+      <div *ngIf="currentView === 'search'" class="search-view">
+        <div class="search-bar">
+          <input type="text" placeholder="¿Qué quieres escuchar?">
+        </div>
+        <div class="search-results">
+          <!-- Search results -->
+        </div>
+      </div>
+
+      <!-- Library View -->
+      <div *ngIf="currentView === 'library'" class="library-view">
+        <div class="library-tabs">
+          <button>Playlists</button>
+          <button>Artistas</button>
+          <button>Álbumes</button>
+        </div>
+        <!-- Library content -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Player Bar -->
+  <footer class="player-bar">
+    <div class="player-track-info">
+      <img src="assets/default-cover.png" alt="Cover" class="track-cover">
+      <div class="track-details">
+        <p class="track-name">Nombre de la canción</p>
+        <p class="track-artist">Artista</p>
+      </div>
+    </div>
+
+    <div class="player-controls">
+      <button class="control-btn">⏮️</button>
+      <button class="control-btn play-btn">▶️</button>
+      <button class="control-btn">⏭️</button>
+      
+      <div class="progress-bar">
+        <span class="time">0:00</span>
+        <input type="range" min="0" max="100" value="0">
+        <span class="time">3:45</span>
+      </div>
+    </div>
+
+    <div class="player-volume">
+      <button>🔊</button>
+      <input type="range" min="0" max="100" value="70">
+    </div>
+  </footer>
+</div>

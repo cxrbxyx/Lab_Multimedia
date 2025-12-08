@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaymentsService } from '../payments-service'; // Tu servicio existente
+import { PaymentsService } from '../services/payments-service'; // Tu servicio existente
 
 // Declaramos la variable global de Stripe
 declare var Stripe: any;

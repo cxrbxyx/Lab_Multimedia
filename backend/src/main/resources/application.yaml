@@ -1,8 +1,8 @@
 spring:
   application:
-    name: gramola
+    name: lab_multimedia
   datasource:
-    url: jdbc:mysql://localhost:3306/gramola?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/lab_multimedia?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
