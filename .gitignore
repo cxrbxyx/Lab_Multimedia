@@ -1,2 +1,4 @@
-*.sh
+iniciar_back.sh
+iniciar_front.sh
+iniciar
 .vscode/
