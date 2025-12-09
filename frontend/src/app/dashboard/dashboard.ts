@@ -8,9 +8,9 @@ import { UserService } from '../services/user-service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css'
+  styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit {
+export class Dashboard {
   user: any = null;
   currentView: string = 'home';
 
@@ -19,29 +19,8 @@ export class Dashboard implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
-    this.loadUser();
-  }
-
-  loadUser() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.router.navigate(['/login']);
-      return;
-    }
-    
-    this.userService.getUser(token).subscribe({
-      next: (data) => this.user = data,
-      error: () => this.router.navigate(['/login'])
-    });
-  }
-
   changeView(view: string) {
     this.currentView = view;
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
-  }
 }

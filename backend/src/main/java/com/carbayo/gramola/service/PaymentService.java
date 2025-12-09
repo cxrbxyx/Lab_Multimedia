@@ -15,7 +15,7 @@ public class PaymentService {
 
     // API Key de prueba de Stripe (según documentación de la práctica)
     static {
-        Stripe.apiKey = ""; //PaymentsService
+        Stripe.apiKey = "sk_test_51SIV1j0Op3tHBSoLhVqt2k3Z0g6duLrSS4lMgMH5eiTzJg1Y0vEmqWUjCNV96wNTtt88ms4zK0WnYth2g7WGLI8R00wRRSs1iJ"; //PaymentsService
         // NOTA: Usa tu propia Secret Key de Stripe si tienes una cuenta creada, sino
         // esta es un placeholder.
         // En un entorno real, esto iría en application.properties.
