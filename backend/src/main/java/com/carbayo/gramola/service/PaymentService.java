@@ -1,6 +1,6 @@
 package com.carbayo.gramola.service;
 
-import com.carbayo.gramola.model.*;
+import com.carbayo.gramola.entity.*;
 import com.carbayo.gramola.repository.StripeTransactionRepository;
 import com.carbayo.gramola.repository.UserRepository;
 import com.stripe.Stripe;

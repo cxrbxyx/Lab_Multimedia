@@ -1,6 +1,6 @@
 package com.carbayo.gramola.controller;
 
-import com.carbayo.gramola.model.StripeTransaction;
+import com.carbayo.gramola.entity.StripeTransaction;
 import com.carbayo.gramola.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

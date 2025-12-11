@@ -1,4 +1,4 @@
-package com.carbayo.gramola.model;
+package com.carbayo.gramola.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

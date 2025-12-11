@@ -1,0 +1,25 @@
+FROM eclipse-temurin:17-jdk-jammy
+
+WORKDIR /app
+
+# Copiar archivos de Maven
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+
+# Dar permisos de ejecución
+RUN chmod +x ./mvnw
+
+# Descargar dependencias
+RUN ./mvnw dependency:go-offline
+
+# Copiar código fuente
+COPY src ./src
+
+# Compilar aplicación
+RUN ./mvnw clean package -DskipTests
+
+# Exponer puerto
+EXPOSE 8080
+
+# Ejecutar aplicación
+CMD ["java", "-jar", "target/gramola-0.0.1-SNAPSHOT.jar"]
