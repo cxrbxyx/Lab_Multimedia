@@ -1,1 +1,31 @@
-<p>search works!</p>
+<div class="search-container">
+  <div class="search-header">
+    <input 
+      type="text" 
+      [(ngModel)]="query" 
+      (keyup.enter)="onSearch()"
+      placeholder="¿Qué quieres escuchar?" 
+      class="search-input"
+    >
+    <button (click)="onSearch()" class="search-btn" [disabled]="isLoading">
+      {{ isLoading ? '...' : 'Buscar' }}
+    </button>
+  </div>
+
+  <div class="results-grid">
+    <div *ngFor="let track of results" class="track-card" (click)="playTrack(track)">
+      <div class="track-image-container">
+        <img [src]="track.image || 'assets/default-cover.png'" alt="Cover" class="track-image">
+        <div class="play-overlay">▶</div>
+      </div>
+      <div class="track-info">
+        <h3 class="track-name">{{ track.name }}</h3>
+        <p class="track-artist">{{ track.artist }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="results.length === 0 && !isLoading && query" class="no-results">
+    <p>No se encontraron resultados para "{{ query }}"</p>
+  </div>
+</div>

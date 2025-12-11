@@ -51,6 +51,9 @@ public class MusicController {
 
             return ResponseEntity.ok(results);
 
+        } catch (io.jsonwebtoken.JwtException e) {
+            // Capturamos errores específicos de token (firma, expiración, etc.)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sesión expirada o inválida");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al buscar música: " + e.getMessage());
         }

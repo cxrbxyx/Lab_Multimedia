@@ -6,25 +6,29 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MusicService {
-  private apiUrl = 'http://localhost:8080/api'; // Ajusta según tu backend
+  private apiUrl = 'http://localhost:8080/api/music';
 
   constructor(private http: HttpClient) {}
 
-  searchTracks(query: string): Observable<any> {
+  // Helper para añadir el token a las cabeceras
+  private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${this.apiUrl}/search?q=${query}`, { headers });
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
 
-  getRecentlyPlayed(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${this.apiUrl}/recently-played`, { headers });
+  // Buscar canciones (llama a tu backend -> Spotify)
+  searchTracks(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/search?q=${query}`, {
+      headers: this.getHeaders()
+    });
   }
 
-  getTrackById(id: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${this.apiUrl}/tracks/${id}`, { headers });
+  // Obtener ID de video (llama a tu backend -> YouTube)
+  getVideoId(track: string, artist: string): Observable<{videoId: string}> {
+    return this.http.get<{videoId: string}>(`${this.apiUrl}/play?track=${track}&artist=${artist}`, {
+      headers: this.getHeaders()
+    });
   }
 }

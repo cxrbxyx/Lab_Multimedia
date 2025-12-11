@@ -1,0 +1,65 @@
+.player-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  background-color: #181818;
+  border-top: 1px solid #282828;
+}
+
+.player-track-info {
+  display: flex;
+  align-items: center;
+  width: 30%;
+}
+
+.track-cover {
+  width: 56px;
+  height: 56px;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+.track-name {
+  color: white;
+  font-size: 0.9rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.track-artist {
+  color: #b3b3b3;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.player-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.control-btn:hover {
+  color: white;
+}
+
+.play-btn {
+  font-size: 2rem;
+  color: white;
+}
+
+/* Hacemos el video pequeño pero visible para depurar */
+.youtube-container {
+  width: 200px; 
+  opacity: 0.8; /* Puedes poner 0 para ocultarlo totalmente después */
+}

@@ -2,9 +2,11 @@ package com.carbayo.gramola.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -13,8 +15,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
-import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class JwtService {
@@ -26,7 +26,9 @@ public class JwtService {
 
     @PostConstruct
     public void init() {
-        // Convertimos la cadena de configuración en una clave criptográfica
+        // Aseguramos que la clave tenga longitud suficiente para HS256 (mínimo 32 bytes)
+        // Si tu clave en .env es corta, esto podría fallar o ser inseguro.
+        // Lo mejor es usar Keys.hmacShaKeyFor con los bytes directos.
         this.SECRET_KEY = Keys.hmacShaKeyFor(secretKeyString.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -52,7 +54,8 @@ public class JwtService {
                 .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 horas
-                .signWith(SECRET_KEY)
+                // IMPORTANTE: Forzar HS256 aquí
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -72,7 +75,7 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(SECRET_KEY)
+                .setSigningKey(SECRET_KEY) // Usar la misma clave para validar
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

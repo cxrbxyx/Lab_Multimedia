@@ -31,8 +31,22 @@ export class Login {
     this.errorMessage = '';
 
     this.loginService.login(this.email, this.password).subscribe({
-      next: (response) => {
+      next: (response: any) => { // Usamos any o la interfaz LoginResponse
         console.log('Login exitoso:', response);
+        
+        // --- AÑADIR ESTAS LÍNEAS ---
+        // Guardamos el token donde MusicService lo espera
+        localStorage.setItem('token', response.token);
+        
+        // Guardamos datos del usuario para el Dashboard
+        localStorage.setItem('user', JSON.stringify({
+          email: response.email,
+          barName: response.barName,
+          clientId: response.clientId,
+          username: response.barName // Para que se vea el nombre en el menú
+        }));
+        // ---------------------------
+
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {

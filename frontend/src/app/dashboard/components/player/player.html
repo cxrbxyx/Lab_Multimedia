@@ -1,1 +1,31 @@
-<p>player works!</p>
+<div class="player-container">
+  
+  <!-- Info de la canción -->
+  <div class="player-track-info">
+    <img [src]="currentTrack?.image || 'assets/default-cover.png'" alt="Cover" class="track-cover">
+    <div class="track-details">
+      <p class="track-name">{{ currentTrack?.name || 'Selecciona una canción' }}</p>
+      <p class="track-artist">{{ currentTrack?.artist || '...' }}</p>
+    </div>
+  </div>
+
+  <!-- Controles (Visuales por ahora, el iframe controla el audio real) -->
+  <div class="player-controls">
+    <button class="control-btn">⏮️</button>
+    <button class="control-btn play-btn">▶️</button>
+    <button class="control-btn">⏭️</button>
+  </div>
+
+  <!-- Reproductor de YouTube (Oculto visualmente o pequeño) -->
+  <div class="youtube-container">
+    <iframe 
+      *ngIf="videoUrl" 
+      [src]="videoUrl" 
+      width="200" 
+      height="113" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
