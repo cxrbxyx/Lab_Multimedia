@@ -1,6 +1,6 @@
 <div class="player-container">
   
-  <!-- Info de la canción -->
+  <!-- Info -->
   <div class="player-track-info">
     <img [src]="currentTrack?.image || 'assets/default-cover.png'" alt="Cover" class="track-cover">
     <div class="track-details">
@@ -9,23 +9,29 @@
     </div>
   </div>
 
-  <!-- Controles (Visuales por ahora, el iframe controla el audio real) -->
+  <!-- Controles -->
   <div class="player-controls">
     <button class="control-btn">⏮️</button>
-    <button class="control-btn play-btn">▶️</button>
+    
+    <button class="control-btn play-btn" (click)="togglePlay()">
+      {{ isPlaying ? '⏸️' : '▶️' }}
+    </button>
+    
     <button class="control-btn">⏭️</button>
   </div>
 
-  <!-- Reproductor de YouTube (Oculto visualmente o pequeño) -->
-  <div class="youtube-container">
-    <iframe 
-      *ngIf="videoUrl" 
-      [src]="videoUrl" 
-      width="200" 
-      height="113" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
+  <!-- Botón para expandir -->
+  <div class="player-actions">
+    <button class="control-btn expand-btn" (click)="toggleExpand()">
+      ⛶
+    </button>
   </div>
+
+  <!-- Contenedor del Video (Se moverá con CSS) -->
+  <div class="video-wrapper" [class.expanded]="isExpanded">
+    <div id="youtube-player"></div>
+    <!-- Botón para cerrar en modo expandido -->
+    <button *ngIf="isExpanded" class="close-expand-btn" (click)="toggleExpand()">✕</button>
+  </div>
+
 </div>

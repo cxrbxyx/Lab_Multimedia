@@ -10,7 +10,7 @@ export interface Track {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PlayerService {
   // Estado actual de la canción (para mostrar título y artista)
@@ -21,14 +21,31 @@ export class PlayerService {
   private videoIdSubject = new BehaviorSubject<string | null>(null);
   videoId$ = this.videoIdSubject.asObservable();
 
-  constructor(private musicService: MusicService) {}
+  // Estado de reproducción (para cambiar el icono play/pause)
+  private isPlayingSubject = new BehaviorSubject<boolean>(false);
+  isPlaying$ = this.isPlayingSubject.asObservable();
+
+  // Variable para guardar la instancia del reproductor de YouTube
+  private player: any = null;
+
+  constructor(private musicService: MusicService) {
+    // Cargar la API de YouTube IFrame globalmente
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
+  }
+
+  // Método para guardar la referencia al reproductor cuando se crea
+  setPlayer(player: any) {
+    this.player = player;
+  }
 
   play(track: any) {
     // 1. Actualizamos la info visual inmediatamente
     this.currentTrackSubject.next({
       name: track.name,
       artist: track.artist,
-      image: track.image,
+      image: track.image
     });
 
     // 2. Pedimos el video al backend
@@ -36,8 +53,26 @@ export class PlayerService {
       next: (response) => {
         console.log('Video ID recibido:', response.videoId);
         this.videoIdSubject.next(response.videoId);
+        this.isPlayingSubject.next(true);
       },
-      error: (err) => console.error('Error obteniendo video:', err),
+      error: (err) => console.error('Error obteniendo video:', err)
     });
   }
+
+  togglePlay() {
+    if (this.player) {
+      const state = this.player.getPlayerState();
+      if (state === 1) { // Playing
+        this.player.pauseVideo();
+        this.isPlayingSubject.next(false);
+      } else {
+        this.player.playVideo();
+        this.isPlayingSubject.next(true);
+      }
+    }
+  }
+
+  // Métodos placeholder para siguiente/anterior (requeriría una cola de reproducción)
+  next() { console.log('Siguiente canción...'); }
+  prev() { console.log('Canción anterior...'); }
 }

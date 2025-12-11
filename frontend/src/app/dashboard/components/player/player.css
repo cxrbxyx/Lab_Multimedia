@@ -63,3 +63,56 @@
   width: 200px; 
   opacity: 0.8; /* Puedes poner 0 para ocultarlo totalmente después */
 }
+
+.video-wrapper {
+  position: fixed;
+  bottom: 80px; /* Altura del footer */
+  right: 20px;
+  width: 240px;
+  height: 135px;
+  background: black;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  /* Oculto por defecto si no hay video */
+  visibility: hidden; 
+  opacity: 0;
+}
+
+/* Mostrar cuando hay contenido (puedes controlar esto con una clase extra) */
+.video-wrapper:has(iframe) {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* MODO EXPANDIDO (Magia CSS) */
+.video-wrapper.expanded {
+  bottom: 90px; /* Un poco por encima del footer */
+  right: 20px; /* O centrado */
+  width: calc(100% - 260px); /* Restando el sidebar */
+  height: calc(100vh - 110px); /* Restando header y footer */
+  max-width: 1200px;
+  /* Si quieres centrado: */
+  /* left: 50%; transform: translateX(-50%); right: auto; */
+}
+
+.close-expand-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.close-expand-btn:hover {
+  background: rgba(0,0,0,0.8);
+}

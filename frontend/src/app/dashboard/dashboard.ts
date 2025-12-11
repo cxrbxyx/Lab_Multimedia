@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user-service';
@@ -15,6 +15,7 @@ import { Player } from './components/player/player'; // <--- Importar
 export class Dashboard {
   user: any = null;
   currentView: string = 'home';
+  isPlayerExpanded: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -35,5 +36,11 @@ export class Dashboard {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
+  }
+
+  // Escuchar el evento personalizado desde el Player
+  @HostListener('window:toggle-expand')
+  onToggleExpand() {
+    this.isPlayerExpanded = !this.isPlayerExpanded;
   }
 }
