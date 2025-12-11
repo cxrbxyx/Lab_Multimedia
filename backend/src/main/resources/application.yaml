@@ -2,9 +2,9 @@ spring:
   application:
     name: lab_multimedia
   datasource:
-    url: jdbc:mysql://localhost:3306/lab_multimedia?createDatabaseIfNotExist=true&serverTimezone=UTC
-    username: root
-    password:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:lab_multimedia}?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -16,11 +16,20 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: pruebaspablo0705@gmail.com # CAMBIAR ESTO
-    password: trcx fmlc blje oint # CAMBIAR ESTO
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+
+# Claves de API
+stripe:
+  api:
+    key: ${STRIPE_SECRET_KEY}
+
+youtube:
+  api:
+    key: ${YOUTUBE_API_KEY}

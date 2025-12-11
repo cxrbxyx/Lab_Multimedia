@@ -1,31 +1,43 @@
 package com.carbayo.gramola.service;
 
+import com.stripe.*;
 import com.carbayo.gramola.entity.*;
 import com.carbayo.gramola.repository.StripeTransactionRepository;
 import com.carbayo.gramola.repository.UserRepository;
-import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.annotation.PostConstruct;
+
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.*;;
 
 @Service
 public class PaymentService {
 
     // API Key de prueba de Stripe (según documentación de la práctica)
-    static {
-        Stripe.apiKey = ""; //PaymentsService
-        // NOTA: Usa tu propia Secret Key de Stripe si tienes una cuenta creada, sino
-        // esta es un placeholder.
-        // En un entorno real, esto iría en application.properties.
-    }
+    @Value("${stripe.api.key}")
+    private String stripeApiKey;
 
     @Autowired
     private StripeTransactionRepository transactionRepository;
 
     @Autowired
     private UserRepository userRepository;
+
+    @PostConstruct
+    public void init() {
+        // Asignamos la clave a la configuración global de la librería Stripe
+        Stripe.apiKey = this.stripeApiKey;
+
+        // Log para depuración (opcional, pero útil para ver si carga)
+        if (this.stripeApiKey == null || this.stripeApiKey.isEmpty()) {
+            System.err.println("❌ ERROR: La API Key de Stripe está vacía o nula.");
+        } else {
+            System.out.println("✅ Stripe API Key configurada correctamente.");
+        }
+    }
 
     public StripeTransaction prepay(String userEmail, String token, Long amount) throws StripeException {
 

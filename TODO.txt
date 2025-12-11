@@ -1,0 +1,132 @@
+Contexto del Proyecto La aplicación, denominada "Gramola", es una plataforma multimedia diseñada para la gestión de música en establecimientos (como bares). Actualmente, el sistema cuenta con una arquitectura separada compuesta por un backend en Spring Boot y un frontend en Angular. La funcionalidad base implementada incluye un flujo completo de autenticación y registro de usuarios, donde se recopilan credenciales específicas de Spotify (Client ID y Client Secret), y un sistema de activación de cuenta mediante pagos con Stripe. Además, existe una lógica de negocio previa desarrollada en Python para la conversión de playlists entre servicios, que sirve como base conceptual para la integración multimedia.
+
+Objetivos Previstos El objetivo principal es evolucionar la plataforma hacia un reproductor híbrido funcional capaz de combinar la calidad de metadatos de Spotify con la capacidad de reproducción de vídeo de YouTube. Para lograrlo, se establecen las siguientes metas:
+
+    Integración de Servicios: Implementar en el backend la comunicación con la API de Spotify para búsquedas y obtención de metadatos, y con la API de YouTube para la resolución de vídeos, migrando la lógica existente del script de Python a Java.
+
+    Optimización de Recursos: Desarrollar un sistema de caché (base de datos o memoria) para almacenar la relación entre canciones de Spotify y vídeos de YouTube, minimizando así el consumo de cuota de la API de Data de YouTube.
+
+    Reproducción Multimedia: Habilitar en el frontend un reproductor capaz de recibir identificadores de vídeo desde el backend tras una búsqueda de audio, permitiendo al usuario una experiencia de usuario fluida donde busca música pero consume contenido audiovisual.
+
+
+TODO:
+
+📅 Fase 1: Backend - El Cerebro (Spotify) y el Corazón (YouTube)
+
+Objetivo: Que el backend sea capaz de hablar con Spotify para obtener datos y con YouTube para obtener video, actuando como intermediario.
+1.1. Configuración de API Keys
+
+    Acción: Añade tu API Key de Google/YouTube en application.yaml.
+
+    Por qué: El backend necesita su propia identidad para hablar con YouTube, independientemente del usuario.
+
+    Archivo: backend/src/main/resources/application.yaml.
+
+1.2. Crear SpotifyService.java
+
+    Objetivo: Gestionar la comunicación con Spotify.
+
+    Tareas:
+
+        Crear un método getClientCredentialsToken(String clientId, String clientSecret) que obtenga el token de acceso temporal de Spotify.
+
+        Crear un método searchTracks(String query, String token) que llame a la API de Spotify y devuelva una lista de canciones (título, artista, uri, imagen).
+
+    Referencia: Usarás los campos clientId y clientSecret que ya tienes en tu entidad User.java.
+
+1.3. Crear YouTubeService.java (Portando tu Python)
+
+    Objetivo: Encontrar el video correspondiente a una canción.
+
+    Tareas:
+
+        Portar lógica: Adapta la función search_youtube_video de tu script spotify_youtube_solution.py a Java usando la librería google-api-client o simplemente RestTemplate.
+
+        Implementar Caché: Crucial. Crea una entidad VideoCache (o usa un Map en memoria para empezar) para guardar "Nombre Canción + Artista" -> "YouTube Video ID".
+
+        Lógica: Antes de llamar a la API de YouTube, el servicio debe mirar si ya tiene el ID en la caché.
+
+1.4. Crear MusicController.java
+
+    Objetivo: Exponer estos servicios al Frontend.
+
+    Endpoints:
+
+        GET /api/music/search?q={query}:
+
+            Recupera el usuario autenticado.
+
+            Llama a SpotifyService usando las credenciales del usuario.
+
+            Devuelve JSON con resultados de Spotify.
+
+        GET /api/music/play?track={nombre}&artist={artista}:
+
+            Llama a YouTubeService.
+
+            Devuelve el videoId.
+
+📅 Fase 2: Frontend - La Interfaz (Búsqueda)
+
+Objetivo: Que el usuario pueda buscar canciones y ver resultados visuales de Spotify.
+2.1. Actualizar MusicService.ts
+
+    Acción: Conectar el servicio de Angular a los nuevos endpoints de Spring Boot.
+
+    Cambio: Modificar frontend/src/app/services/music-service.ts para apuntar a tu backend (localhost:8080) en lugar del mock (localhost:3000) y asegurarse de que envía el token de autenticación (JWT) en las cabeceras.
+
+2.2. Implementar Componente Search
+
+    Archivos: frontend/src/app/dashboard/components/search/search.ts y .html.
+
+    Tareas:
+
+        Crear un formulario de búsqueda.
+
+        Al enviar, llamar a musicService.searchTracks().
+
+        Renderizar los resultados en una lista o cuadrícula (usando las imágenes de las carátulas que devuelve Spotify).
+
+📅 Fase 3: Frontend - La Reproducción (Player)
+
+Objetivo: Reproducir el video de YouTube cuando se selecciona una canción de Spotify.
+3.1. Integrar Reproductor de YouTube
+
+    Archivos: frontend/src/app/dashboard/components/player/player.ts y .html.
+
+    Opción A (Rápida): Usar el paquete @angular/youtube-player.
+
+    Opción B (Nativa): Usar un <iframe> estándar de YouTube y controlar su src dinámicamente.
+
+    Lógica: El componente debe tener una variable currentVideoId.
+
+3.2. Comunicación entre Componentes
+
+    Desafío: El componente Search (donde haces clic) y Player (donde se reproduce) están separados.
+
+    Solución: Usar un servicio compartido (PlayerService) o Signals de Angular.
+
+        Usuario clic en canción en Search.
+
+        Search llama a musicService.getVideoId(trackName, artistName).
+
+        Al recibir el ID, Search actualiza el estado global "Canción Actual".
+
+        El componente Player detecta el cambio y actualiza el video.
+
+📅 Fase 4: Pulido y Protección
+
+Objetivo: Asegurar que la aplicación sea robusta.
+4.1. Gestión de Cuotas (Backend)
+
+    Asegúrate de que tu caché en YouTubeService funciona. Si 5 usuarios buscan "Despacito", la API de YouTube solo debe llamarse 1 vez.
+
+4.2. Manejo de Errores (Frontend)
+
+    ¿Qué pasa si el usuario puso credenciales de Spotify incorrectas al registrarse? (Tu código actual no valida esto en el registro, solo la contraseña).
+
+    Añadir un mensaje en el Dashboard si la búsqueda falla ("Revisa tus credenciales de Spotify").
+
+4.3. Estilos
+
+    Mejorar el CSS de track-list y player para que se vea como una app de música real.
