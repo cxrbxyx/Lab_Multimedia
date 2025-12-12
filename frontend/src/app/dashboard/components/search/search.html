@@ -13,14 +13,15 @@
   </div>
 
   <div class="results-grid">
-    <div *ngFor="let track of results" class="track-card" (click)="playTrack(track)">
-      <div class="track-image-container">
+    <div *ngFor="let track of results" class="track-card">
+      <div class="track-image-container" (click)="playTrack(track)">
         <img [src]="track.image || 'assets/default-cover.png'" alt="Cover" class="track-image" />
         <div class="play-overlay">▶</div>
       </div>
       <div class="track-info">
         <h3 class="track-name">{{ track.name }}</h3>
         <p class="track-artist">{{ track.artist }}</p>
+        <button class="add-queue-btn" (click)="addToQueue(track, $event)">+ Cola</button>
       </div>
     </div>
   </div>

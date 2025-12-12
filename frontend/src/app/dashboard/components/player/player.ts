@@ -69,6 +69,9 @@ export class Player implements OnInit {
           'onStateChange': (event: any) => {
             if (event.data === YT.PlayerState.PLAYING) {
                this.startProgressLoop();
+            } else if (event.data === YT.PlayerState.ENDED) {
+               this.stopProgressLoop();
+               this.playerService.next(); // Pasar a la siguiente automáticamente
             } else {
                this.stopProgressLoop();
             }
@@ -87,6 +90,19 @@ export class Player implements OnInit {
     // Por ahora lo haremos simple: inyectaremos este estado desde el dashboard
     const event = new CustomEvent('toggle-expand');
     window.dispatchEvent(event);
+  }
+
+  toggleQueue() {
+    const event = new CustomEvent('toggle-queue');
+    window.dispatchEvent(event);
+  }
+
+  next() {
+    this.playerService.next();
+  }
+
+  prev() {
+    this.playerService.prev();
   }
 
   startProgressLoop() {

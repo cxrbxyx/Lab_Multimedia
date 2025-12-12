@@ -42,6 +42,7 @@
               <div class="track-info">
                 <h3 class="track-name">{{ item.trackName }}</h3>
                 <p class="track-artist">{{ item.artistName }}</p>
+                <button class="add-queue-btn" (click)="addToQueue(item, $event)">+ Cola</button>
               </div>
             </div>
             <div *ngIf="history.length === 0" class="no-history">
@@ -62,4 +63,34 @@
   <footer class="player-bar">
     <app-player [isExpanded]="isPlayerExpanded"></app-player>
   </footer>
+
+  <!-- Queue Overlay -->
+  <div class="queue-overlay" *ngIf="showQueue">
+    <div class="queue-header">
+      <h3>Cola de Reproducción</h3>
+      <button class="clear-queue-btn" (click)="clearQueue()">Limpiar Cola</button>
+      <button class="close-queue-btn" (click)="showQueue = false">✕</button>
+    </div>
+    <div class="queue-list">
+      <div *ngFor="let track of queue; let i = index" class="queue-item" [class.active]="i === currentQueueIndex">
+        <div class="queue-track-info" (click)="jumpTo(i)">
+          <span class="queue-index" *ngIf="i !== currentQueueIndex">{{ i + 1 }}</span>
+          <span class="queue-playing-icon" *ngIf="i === currentQueueIndex">🔊</span>
+          <img [src]="track.image || 'assets/default-cover.png'" class="queue-cover">
+          <div class="queue-details">
+            <p class="queue-name">{{ track.name }}</p>
+            <p class="queue-artist">{{ track.artist }}</p>
+          </div>
+        </div>
+        <div class="queue-actions">
+          <button class="move-btn" (click)="moveTrack(i, i-1)" [disabled]="i === 0">▲</button>
+          <button class="move-btn" (click)="moveTrack(i, i+1)" [disabled]="i === queue.length - 1">▼</button>
+          <button class="remove-btn" (click)="removeFromQueue(i)">🗑️</button>
+        </div>
+      </div>
+      <div *ngIf="queue.length === 0" class="empty-queue">
+        <p>La cola está vacía</p>
+      </div>
+    </div>
+  </div>
 </div>

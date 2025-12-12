@@ -1,3 +1,5 @@
+@import './components/queue.css';
+
 .dashboard-container {
   display: grid;
   grid-template-areas:
@@ -312,6 +314,25 @@
   font-size: 12px;
   color: #b3b3b3;
   margin: 0;
+}
+
+.add-queue-btn {
+  margin-top: 8px;
+  background-color: transparent;
+  border: 1px solid #b3b3b3;
+  color: #b3b3b3;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.add-queue-btn:hover {
+  border-color: white;
+  color: white;
+  background-color: rgba(255,255,255,0.1);
 }
 
 .player-controls {

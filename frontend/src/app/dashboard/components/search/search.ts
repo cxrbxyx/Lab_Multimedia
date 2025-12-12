@@ -52,4 +52,11 @@ export class Search {
     // Usar el servicio para iniciar la reproducción
     this.playerService.play(track);
   }
+
+  addToQueue(track: any, event: Event) {
+    event.stopPropagation(); // Evitar que se dispare el click de la tarjeta (play)
+    this.playerService.addToQueue(track);
+    // Opcional: Mostrar feedback visual (toast, alerta, etc.)
+    alert(`"${track.name}" añadida a la cola`);
+  }
 }

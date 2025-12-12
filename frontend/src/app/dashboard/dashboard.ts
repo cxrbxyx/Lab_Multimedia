@@ -19,6 +19,11 @@ export class Dashboard implements OnInit {
   currentView: string = 'home';
   isPlayerExpanded: boolean = false;
   history: any[] = [];
+  
+  // Cola
+  showQueue: boolean = false;
+  queue: any[] = [];
+  currentQueueIndex: number = -1;
 
   constructor(
     private userService: UserService,
@@ -35,6 +40,10 @@ export class Dashboard implements OnInit {
 
   ngOnInit() {
     this.loadHistory();
+    
+    // Suscribirse a la cola
+    this.playerService.queue$.subscribe(q => this.queue = q);
+    this.playerService.currentIndex$.subscribe(i => this.currentQueueIndex = i);
   }
 
   loadHistory() {
@@ -59,6 +68,16 @@ export class Dashboard implements OnInit {
       image: track.image
     });
   }
+
+  addToQueue(track: any, event: Event) {
+    event.stopPropagation();
+    this.playerService.addToQueue({
+      name: track.trackName,
+      artist: track.artistName,
+      image: track.image
+    });
+    alert(`"${track.trackName}" añadida a la cola`);
+  }
   
   logout() {
     localStorage.removeItem('token');
@@ -70,5 +89,29 @@ export class Dashboard implements OnInit {
   @HostListener('window:toggle-expand')
   onToggleExpand() {
     this.isPlayerExpanded = !this.isPlayerExpanded;
+  }
+
+  @HostListener('window:toggle-queue')
+  onToggleQueue() {
+    this.showQueue = !this.showQueue;
+  }
+
+  // Métodos de la cola
+  removeFromQueue(index: number) {
+    this.playerService.removeFromQueue(index);
+  }
+
+  clearQueue() {
+    if (confirm('¿Seguro que quieres borrar toda la cola?')) {
+      this.playerService.clearQueue();
+    }
+  }
+
+  moveTrack(fromIndex: number, toIndex: number) {
+    this.playerService.moveTrack(fromIndex, toIndex);
+  }
+
+  jumpTo(index: number) {
+    this.playerService.jumpTo(index);
   }
 }

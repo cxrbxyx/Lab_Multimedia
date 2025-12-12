@@ -12,13 +12,13 @@
   <div class="player-center">
     <!-- Controles -->
     <div class="player-controls">
-      <button class="control-btn">⏮️</button>
+      <button class="control-btn" (click)="prev()">⏮️</button>
       
       <button class="control-btn play-btn" (click)="togglePlay()">
         {{ isPlaying ? '⏸️' : '▶️' }}
       </button>
       
-      <button class="control-btn">⏭️</button>
+      <button class="control-btn" (click)="next()">⏭️</button>
     </div>
 
     <!-- Barra de Progreso -->
@@ -33,6 +33,11 @@
 
   <!-- Lado Derecho: Video y Acciones -->
   <div class="player-right">
+    <!-- Botón Cola -->
+    <button class="control-btn queue-btn" (click)="toggleQueue()">
+      ☰
+    </button>
+
     <!-- Botón para expandir (visible solo si no está expandido) -->
     <button *ngIf="!isExpanded" class="control-btn expand-btn" (click)="toggleExpand()">
       ⛶
