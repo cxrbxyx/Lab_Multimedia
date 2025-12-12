@@ -66,7 +66,7 @@
 
 .video-wrapper {
   position: fixed;
-  bottom: 80px; /* Altura del footer */
+  bottom: 120px; /* Altura del footer + margen */
   right: 20px;
   width: 240px;
   height: 135px;
@@ -89,7 +89,7 @@
 
 /* MODO EXPANDIDO (Magia CSS) */
 .video-wrapper.expanded {
-  bottom: 90px; /* Un poco por encima del footer */
+  bottom: 110px; /* Un poco por encima del footer */
   right: 20px; /* O centrado */
   width: calc(100% - 260px); /* Restando el sidebar */
   height: calc(100vh - 110px); /* Restando header y footer */
