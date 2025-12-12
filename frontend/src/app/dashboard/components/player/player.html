@@ -9,22 +9,30 @@
     </div>
   </div>
 
-  <!-- Controles -->
-  <div class="player-controls">
-    <button class="control-btn">⏮️</button>
-    
-    <button class="control-btn play-btn" (click)="togglePlay()">
-      {{ isPlaying ? '⏸️' : '▶️' }}
-    </button>
-    
-    <button class="control-btn">⏭️</button>
+  <div class="player-center">
+    <!-- Controles -->
+    <div class="player-controls">
+      <button class="control-btn">⏮️</button>
+      
+      <button class="control-btn play-btn" (click)="togglePlay()">
+        {{ isPlaying ? '⏸️' : '▶️' }}
+      </button>
+      
+      <button class="control-btn">⏭️</button>
+    </div>
+
+    <!-- Barra de Progreso -->
+    <div class="player-progress">
+      <span class="time-current">{{ formatTime(currentTime) }}</span>
+      <input type="range" class="progress-bar" 
+             [min]="0" [max]="duration" [value]="currentTime" 
+             (input)="onSeek($event)">
+      <span class="time-duration">{{ formatTime(duration) }}</span>
+    </div>
   </div>
 
   <!-- Botón para expandir -->
   <div class="player-actions">
-    <button class="control-btn" (click)="toggleVideoMode()" title="Alternar Video/Carátula">
-      {{ isVideoHidden ? '🎥' : '🎵' }}
-    </button>
     <button class="control-btn expand-btn" (click)="toggleExpand()">
       ⛶
     </button>
@@ -32,13 +40,7 @@
 
   <!-- Contenedor del Video (Se moverá con CSS) -->
   <div class="video-wrapper" [class.expanded]="isExpanded">
-    <div id="youtube-player" [class.hidden]="isVideoHidden"></div>
-    
-    <!-- Carátula grande cuando el video está oculto -->
-    <div class="large-cover" *ngIf="isVideoHidden && currentTrack">
-      <img [src]="currentTrack.image" alt="Cover">
-    </div>
-
+    <div id="youtube-player"></div>
     <!-- Botón para cerrar en modo expandido -->
     <button *ngIf="isExpanded" class="close-expand-btn" (click)="toggleExpand()">✕</button>
   </div>

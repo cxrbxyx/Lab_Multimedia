@@ -16,10 +16,13 @@ export class Player implements OnInit {
   currentTrack: Track | null = null;
   isPlaying: boolean = false;
   videoId: string | null = null;
-  isVideoHidden: boolean = false;
   
   // Controla si el video se ve en grande
   @Input() isExpanded: boolean = false;
+
+  currentTime: number = 0;
+  duration: number = 0;
+  private progressInterval: any;
 
   constructor(private playerService: PlayerService) {}
 
@@ -35,9 +38,6 @@ export class Player implements OnInit {
     });
   }
 
-  toggleVideoMode() {
-    this.isVideoHidden = !this.isVideoHidden;
-  }
 
   loadVideo(id: string) {
     // Esperar a que la API de YouTube esté lista
@@ -64,11 +64,13 @@ export class Player implements OnInit {
           'onReady': (event: any) => {
             this.playerService.setPlayer(event.target);
             event.target.playVideo();
+            this.startProgressLoop();
           },
           'onStateChange': (event: any) => {
-            // Sincronizar estado si el video termina o se pausa manualmente
             if (event.data === YT.PlayerState.PLAYING) {
-               // Actualizar estado a playing si es necesario
+               this.startProgressLoop();
+            } else {
+               this.stopProgressLoop();
             }
           }
         }
@@ -85,5 +87,38 @@ export class Player implements OnInit {
     // Por ahora lo haremos simple: inyectaremos este estado desde el dashboard
     const event = new CustomEvent('toggle-expand');
     window.dispatchEvent(event);
+  }
+
+  startProgressLoop() {
+    this.stopProgressLoop();
+    this.progressInterval = setInterval(() => {
+      const player = this.playerService['player'];
+      if (player && player.getCurrentTime) {
+        this.currentTime = player.getCurrentTime();
+        this.duration = player.getDuration();
+      }
+    }, 500);
+  }
+
+  stopProgressLoop() {
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+    }
+  }
+
+  onSeek(event: any) {
+    const value = event.target.value;
+    const player = this.playerService['player'];
+    if (player && player.seekTo) {
+      player.seekTo(value, true);
+      this.currentTime = Number(value);
+    }
+  }
+
+  formatTime(time: number): string {
+    if (!time || isNaN(time)) return '0:00';
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 }
