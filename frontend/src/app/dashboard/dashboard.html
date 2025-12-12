@@ -14,22 +14,7 @@
         <span class="icon">🔍</span>
         <span>Buscar</span>
       </button>
-      <button (click)="changeView('library')" [class.active]="currentView === 'library'">
-        <span class="icon">📚</span>
-        <span>Tu biblioteca</span>
-      </button>
     </nav>
-
-    <div class="playlists">
-      <button (click)="changeView('create-playlist')" class="create-playlist">
-        <span class="icon">➕</span>
-        <span>Crear playlist</span>
-      </button>
-      
-      <div class="playlist-list">
-        <!-- Aquí irán las playlists del usuario -->
-      </div>
-    </div>
 
     <div class="user-profile">
       <img [src]="user?.avatar || 'assets/default-avatar.png'" alt="Avatar">
@@ -41,7 +26,7 @@
   <!-- Main Content -->
   <main class="main-content">
     <div class="content-header">
-      <h2>{{ currentView === 'home' ? 'Inicio' : currentView === 'search' ? 'Buscar' : 'Tu biblioteca' }}</h2>
+      <h2>{{ currentView === 'home' ? 'Inicio' : 'Buscar' }}</h2>
     </div>
 
     <div class="content-body">
@@ -53,28 +38,11 @@
             <!-- Track cards -->
           </div>
         </section>
-
-        <section class="section">
-          <h3>Tus playlists</h3>
-          <div class="playlist-grid">
-            <!-- Playlist cards -->
-          </div>
-        </section>
       </div>
 
       <!-- Search View -->
       <div *ngIf="currentView === 'search'" class="search-view">
         <app-search></app-search>
-      </div>
-
-      <!-- Library View -->
-      <div *ngIf="currentView === 'library'" class="library-view">
-        <div class="library-tabs">
-          <button>Playlists</button>
-          <button>Artistas</button>
-          <button>Álbumes</button>
-        </div>
-        <!-- Library content -->
       </div>
     </div>
   </main>
