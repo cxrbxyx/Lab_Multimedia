@@ -34,18 +34,18 @@ public class HistoryController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addToHistory(@RequestHeader("Authorization") String authHeader, @RequestBody Map<String, String> body) {
+    public ResponseEntity<?> addToHistory(@RequestHeader("Authorization") String authHeader,
+            @RequestBody Map<String, String> body) {
         try {
             String token = authHeader.substring(7);
             String email = jwtService.extractEmail(token);
-            
+
             historyService.save(
-                email, 
-                body.get("name"), 
-                body.get("artist"), 
-                body.get("image"), 
-                body.get("videoId")
-            );
+                    email,
+                    body.get("name"),
+                    body.get("artist"),
+                    body.get("image"),
+                    body.get("videoId"));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error guardando historial");

@@ -9,7 +9,7 @@ import { PlayerService } from '../../../services/player-service'; // <--- Import
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './search.html',
-  styleUrls: ['./search.css']
+  styleUrls: ['./search.css'],
 })
 export class Search {
   query: string = '';
@@ -17,10 +17,7 @@ export class Search {
   isLoading: boolean = false;
   offset: number = 0;
 
-  constructor(
-    private musicService: MusicService,
-    private playerService: PlayerService
-  ) {}
+  constructor(private musicService: MusicService, private playerService: PlayerService) {}
 
   onSearch() {
     if (!this.query.trim()) return;
@@ -47,7 +44,7 @@ export class Search {
       error: (err) => {
         console.error('Error buscando música:', err);
         this.isLoading = false;
-      }
+      },
     });
   }
 

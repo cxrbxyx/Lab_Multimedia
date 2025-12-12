@@ -1,12 +1,12 @@
 <div class="search-container">
   <div class="search-header">
-    <input 
-      type="text" 
-      [(ngModel)]="query" 
+    <input
+      type="text"
+      [(ngModel)]="query"
       (keyup.enter)="onSearch()"
-      placeholder="¿Qué quieres escuchar?" 
+      placeholder="¿Qué quieres escuchar?"
       class="search-input"
-    >
+    />
     <button (click)="onSearch()" class="search-btn" [disabled]="isLoading">
       {{ isLoading ? '...' : 'Buscar' }}
     </button>
@@ -15,7 +15,7 @@
   <div class="results-grid">
     <div *ngFor="let track of results" class="track-card" (click)="playTrack(track)">
       <div class="track-image-container">
-        <img [src]="track.image || 'assets/default-cover.png'" alt="Cover" class="track-image">
+        <img [src]="track.image || 'assets/default-cover.png'" alt="Cover" class="track-image" />
         <div class="play-overlay">▶</div>
       </div>
       <div class="track-info">
@@ -30,7 +30,7 @@
       {{ isLoading ? 'Cargando...' : 'Mostrar más' }}
     </button>
   </div>
-  
+
   <div *ngIf="results.length === 0 && !isLoading && query" class="no-results">
     <p>No se encontraron resultados para "{{ query }}"</p>
   </div>
