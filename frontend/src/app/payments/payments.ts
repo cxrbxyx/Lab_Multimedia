@@ -21,7 +21,7 @@ export class PaymentsComponent implements OnInit {
   card: any;
   email: string = '';
   token: string = '';
-  amount: number = 1000; // 10.00€
+  amount: number = 100; // 1.00€
   
   message: string = '';
   isProcessing: boolean = false;
@@ -54,7 +54,7 @@ export class PaymentsComponent implements OnInit {
       const elements = this.stripe.elements();
       const style = {
         base: {
-          color: '#32325d',
+          color: '#ffffff',
           fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
           fontSmoothing: 'antialiased',
           fontSize: '16px',

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
 import com.carbayo.gramola.service.UserService;
 
 @RestController
@@ -18,14 +19,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Value("${spotify.client.id}")
+    private String spotifyClientId;
+
+    @Value("${spotify.client.secret}")
+    private String spotifyClientSecret;
+
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody Map<String, String> body) {
         String bar = body.get("bar");
         String email = body.get("email");
         String pwd1 = body.get("pwd1");
         String pwd2 = body.get("pwd2");
-        String clientId = body.get("clientId");
-        String clientSecret = body.get("clientSecret");
+        // String clientId = body.get("clientId"); // Ya no se usa del body
+        // String clientSecret = body.get("clientSecret"); // Ya no se usa del body
 
         // 1. Validaciones básicas
         if (!pwd1.equals(pwd2)) {
@@ -34,8 +41,8 @@ public class UserController {
         }
 
         try {
-            // 2. Llamada al servicio
-            this.userService.register(bar, email, pwd1, clientId, clientSecret);
+            // 2. Llamada al servicio usando las variables de entorno
+            this.userService.register(bar, email, pwd1, spotifyClientId, spotifyClientSecret);
             return new ResponseEntity<>(HttpStatus.OK); // 200 OK [cite: 112]
         } catch (Exception e) {
             // 409 si el usuario ya existe [cite: 112]

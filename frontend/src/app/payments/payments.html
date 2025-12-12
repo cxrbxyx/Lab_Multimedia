@@ -1,9 +1,9 @@
 <div class="payment-container">
-  <h2>Finalizar Registro de Bar</h2>
+  <h2>Finalizar Registro de Usuario</h2>
   
   <div *ngIf="email; else errorTpl">
     <p>Usuario: <strong>{{ email }}</strong></p>
-    <p>Total a pagar: <strong>10.00€</strong></p>
+    <p>Total a pagar: <strong>1.00€</strong></p>
 
     <div class="stripe-box">
       <label>Tarjeta de Crédito / Débito</label>
@@ -12,7 +12,7 @@
     </div>
 
     <button (click)="iniciarPago()" [disabled]="isProcessing" class="btn-pay">
-      {{ isProcessing ? 'Procesando...' : 'Pagar 10.00€' }}
+      {{ isProcessing ? 'Procesando...' : 'Pagar 1.00€' }}
     </button>
 
     <div class="message" *ngIf="message">{{ message }}</div>

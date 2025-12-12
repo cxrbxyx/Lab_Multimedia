@@ -15,13 +15,13 @@
 
     <form class="register-form" (ngSubmit)="onRegister()">
       <div class="form-group">
-        <label for="barName">Nombre del Bar</label>
+        <label for="userName">Nombre de usuario</label>
         <input 
           type="text" 
           id="barName" 
           name="barName"
           [(ngModel)]="barName"
-          placeholder="Nombre del bar" 
+          placeholder="Nombre de usuario" 
           required 
           class="form-control"
           [disabled]="isLoading"
@@ -36,34 +36,6 @@
           name="email"
           [(ngModel)]="email"
           placeholder="tu@email.com" 
-          required 
-          class="form-control"
-          [disabled]="isLoading"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="clientId">Client ID de Spotify</label>
-        <input 
-          type="text" 
-          id="clientId" 
-          name="clientId"
-          [(ngModel)]="clientId"
-          placeholder="Tu Client ID de Spotify" 
-          required 
-          class="form-control"
-          [disabled]="isLoading"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="clientSecret">Client Secret de Spotify</label>
-        <input 
-          type="text" 
-          id="clientSecret" 
-          name="clientSecret"
-          [(ngModel)]="clientSecret"
-          placeholder="Tu Client Secret" 
           required 
           class="form-control"
           [disabled]="isLoading"

@@ -14,8 +14,6 @@ import { UserService } from '../services/user-service';
 export class RegisterComponent {
   barName: string = '';
   email: string = '';
-  clientId: string = '';
-  clientSecret: string = '';
   password: string = '';
   confirmPassword: string = '';
   errorMessage: string = '';
@@ -31,7 +29,7 @@ export class RegisterComponent {
     console.log('Intento de registro...');
 
     // Validación básica
-    if (!this.barName || !this.email || !this.password || !this.confirmPassword || !this.clientId || !this.clientSecret) {
+    if (!this.barName || !this.email || !this.password || !this.confirmPassword) {
       this.errorMessage = 'Por favor, completa todos los campos obligatorios.';
       return;
     }
@@ -54,13 +52,11 @@ export class RegisterComponent {
       name: this.barName,
       email: this.email,
       password: this.password,
-      spotifyClientId: this.clientId,
-      spotifyClientSecret: this.clientSecret,
     };
 
     console.log('Enviando datos al backend:', user);
 
-    this.userService.register(this.barName, this.email, this.password,this.password, this.clientId, this.clientSecret).subscribe({
+    this.userService.register(this.barName, this.email, this.password, this.password).subscribe({
       next: (response) => {
         console.log('Registro exitoso:', response);
         this.successMessage = 'Registro exitoso. Por favor, revisa tu email para confirmar tu cuenta.';
@@ -69,8 +65,6 @@ export class RegisterComponent {
         // Limpiar formulario
         this.barName = '';
         this.email = '';
-        this.clientId = '';
-        this.clientSecret = '';
         this.password = '';
         this.confirmPassword = '';
       },
