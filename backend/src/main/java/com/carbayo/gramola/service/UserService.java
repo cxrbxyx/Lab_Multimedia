@@ -44,23 +44,23 @@ public class UserService {
 
         // Mensaje del correo
         String mensaje = "Hola " + bar + ",\n\n" +
-            "Gracias por registrarte en Gramola.\n\n" +
+            "Gracias por registrarte en MusicLab.\n\n" +
             "Por favor, confirma tu cuenta y completa el pago haciendo clic en el siguiente enlace:\n\n" +
             confirmationUrl + "\n\n" +
             "Si no has solicitado este registro, ignora este correo.\n\n" +
-            "Saludos,\nEl equipo de Gramola";
+            "Saludos,\nEl equipo de MusicLab";
 
 
         // Enviar el correo
         try {
-            this.mailService.sendEmail(email, "Confirma tu cuenta de Gramola", mensaje);
+            this.mailService.sendEmail(email, "Confirma tu cuenta de MusicLab", mensaje);
             System.out.println("✅ Correo enviado a: " + email);
         } catch (Exception e) {
             System.err.println("❌ Error al enviar correo: " + e.getMessage());
             // También puedes mostrar en consola para debug
             System.out.println("--- CORREO QUE SE INTENTÓ ENVIAR ---");
             System.out.println("Para: " + email);
-            System.out.println("Asunto: Confirma tu cuenta de Gramola");
+            System.out.println("Asunto: Confirma tu cuenta de MusicLab");
             System.out.println("Contenido:\n" + mensaje);
             System.out.println("-----------------------------------");
         }
