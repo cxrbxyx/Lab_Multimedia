@@ -3,30 +3,31 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: #121212;
   padding: 20px;
 }
 
 .home-content {
   text-align: center;
-  background: white;
+  background: #181818;
   padding: 60px 40px;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
   max-width: 500px;
   width: 100%;
+  color: white;
 }
 
 .home-title {
   font-size: 3rem;
   font-weight: bold;
-  color: #333;
+  color: white;
   margin-bottom: 10px;
 }
 
 .home-subtitle {
   font-size: 1.2rem;
-  color: #666;
+  color: #b3b3b3;
   margin-bottom: 40px;
 }
 
@@ -43,11 +44,36 @@
   gap: 10px;
   padding: 15px 30px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: bold;
   border: none;
-  border-radius: 10px;
+  border-radius: 24px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary {
+  background: #1db954;
+  color: black;
+}
+
+.btn-primary:hover {
+  background: #1ed760;
+  transform: scale(1.02);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #727272;
+  color: white;
+}
+
+.btn-secondary:hover {
+  border-color: white;
+  transform: scale(1.02);
+}
 }
 
 .btn-icon {
