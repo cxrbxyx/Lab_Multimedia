@@ -39,12 +39,13 @@ public class SpotifyService {
     }
 
     // 2. Buscar canciones
-    public List<Map<String, String>> searchTracks(String query, String token) {
+    public List<Map<String, String>> searchTracks(String query, String token, int offset) {
         JsonNode response = webClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/search")
                         .queryParam("q", query)
                         .queryParam("type", "track")
                         .queryParam("limit", "10")
+                        .queryParam("offset", String.valueOf(offset))
                         .build())
                 .headers(h -> h.setBearerAuth(token))
                 .retrieve()

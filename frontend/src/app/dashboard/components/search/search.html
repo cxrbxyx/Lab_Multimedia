@@ -24,6 +24,12 @@
       </div>
     </div>
   </div>
+
+  <div class="load-more-container" *ngIf="results.length > 0">
+    <button (click)="loadMore()" class="search-btn" [disabled]="isLoading">
+      {{ isLoading ? 'Cargando...' : 'Mostrar más' }}
+    </button>
+  </div>
   
   <div *ngIf="results.length === 0 && !isLoading && query" class="no-results">
     <p>No se encontraron resultados para "{{ query }}"</p>

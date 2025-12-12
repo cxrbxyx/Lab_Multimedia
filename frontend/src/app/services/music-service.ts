@@ -19,8 +19,8 @@ export class MusicService {
   }
 
   // Buscar canciones (llama a tu backend -> Spotify)
-  searchTracks(query: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/search?q=${query}`, {
+  searchTracks(query: string, offset: number = 0): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/search?q=${query}&offset=${offset}`, {
       headers: this.getHeaders()
     });
   }

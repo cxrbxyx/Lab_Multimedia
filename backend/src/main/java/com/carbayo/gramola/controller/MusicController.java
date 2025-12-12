@@ -33,7 +33,8 @@ public class MusicController {
     @GetMapping("/search")
     public ResponseEntity<?> searchTracks(
             @RequestHeader("Authorization") String authHeader,
-            @RequestParam String q) {
+            @RequestParam String q,
+            @RequestParam(defaultValue = "0") int offset) {
 
         try {
             // 1. Obtener usuario del token
@@ -47,8 +48,7 @@ public class MusicController {
             String spotifyToken = spotifyService.getClientCredentialsToken(user.getClientId(), user.getClientSecret());
 
             // 3. Buscar canciones
-            List<Map<String, String>> results = spotifyService.searchTracks(q, spotifyToken);
-
+            List<Map<String, String>> results = spotifyService.searchTracks(q, spotifyToken, offset);
             return ResponseEntity.ok(results);
 
         } catch (io.jsonwebtoken.JwtException e) {

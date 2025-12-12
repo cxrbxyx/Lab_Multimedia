@@ -15,19 +15,33 @@ export class Search {
   query: string = '';
   results: any[] = [];
   isLoading: boolean = false;
+  offset: number = 0;
 
   constructor(
     private musicService: MusicService,
-    private playerService: PlayerService // <--- Inyectar
+    private playerService: PlayerService
   ) {}
 
   onSearch() {
     if (!this.query.trim()) return;
 
     this.isLoading = true;
-    this.musicService.searchTracks(this.query).subscribe({
+    this.offset = 0; // Reset offset
+    this.results = []; // Clear previous results
+
+    this.loadTracks();
+  }
+
+  loadMore() {
+    this.offset += 10;
+    this.isLoading = true;
+    this.loadTracks();
+  }
+
+  private loadTracks() {
+    this.musicService.searchTracks(this.query, this.offset).subscribe({
       next: (data) => {
-        this.results = data;
+        this.results = [...this.results, ...data]; // Append new results
         this.isLoading = false;
       },
       error: (err) => {
