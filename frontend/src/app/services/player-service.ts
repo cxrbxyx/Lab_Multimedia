@@ -54,6 +54,14 @@ export class PlayerService {
         console.log('Video ID recibido:', response.videoId);
         this.videoIdSubject.next(response.videoId);
         this.isPlayingSubject.next(true);
+
+        // 3. Guardar en historial
+        this.musicService.addToHistory({
+          name: track.name,
+          artist: track.artist,
+          image: track.image,
+          videoId: response.videoId
+        }).subscribe();
       },
       error: (err) => console.error('Error obteniendo video:', err)
     });

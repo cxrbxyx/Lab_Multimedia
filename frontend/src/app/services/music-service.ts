@@ -31,4 +31,17 @@ export class MusicService {
       headers: this.getHeaders()
     });
   }
+
+  // Historial
+  getHistory(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8080/api/history', {
+      headers: this.getHeaders()
+    });
+  }
+
+  addToHistory(track: any): Observable<any> {
+    return this.http.post('http://localhost:8080/api/history', track, {
+      headers: this.getHeaders()
+    });
+  }
 }

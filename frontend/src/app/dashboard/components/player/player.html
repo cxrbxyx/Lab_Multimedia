@@ -22,6 +22,9 @@
 
   <!-- Botón para expandir -->
   <div class="player-actions">
+    <button class="control-btn" (click)="toggleVideoMode()" title="Alternar Video/Carátula">
+      {{ isVideoHidden ? '🎥' : '🎵' }}
+    </button>
     <button class="control-btn expand-btn" (click)="toggleExpand()">
       ⛶
     </button>
@@ -29,7 +32,13 @@
 
   <!-- Contenedor del Video (Se moverá con CSS) -->
   <div class="video-wrapper" [class.expanded]="isExpanded">
-    <div id="youtube-player"></div>
+    <div id="youtube-player" [class.hidden]="isVideoHidden"></div>
+    
+    <!-- Carátula grande cuando el video está oculto -->
+    <div class="large-cover" *ngIf="isVideoHidden && currentTrack">
+      <img [src]="currentTrack.image" alt="Cover">
+    </div>
+
     <!-- Botón para cerrar en modo expandido -->
     <button *ngIf="isExpanded" class="close-expand-btn" (click)="toggleExpand()">✕</button>
   </div>

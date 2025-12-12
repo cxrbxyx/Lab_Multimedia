@@ -16,6 +16,7 @@ export class Player implements OnInit {
   currentTrack: Track | null = null;
   isPlaying: boolean = false;
   videoId: string | null = null;
+  isVideoHidden: boolean = false;
   
   // Controla si el video se ve en grande
   @Input() isExpanded: boolean = false;
@@ -32,6 +33,10 @@ export class Player implements OnInit {
         this.loadVideo(id);
       }
     });
+  }
+
+  toggleVideoMode() {
+    this.isVideoHidden = !this.isVideoHidden;
   }
 
   loadVideo(id: string) {

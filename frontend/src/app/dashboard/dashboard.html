@@ -35,7 +35,19 @@
         <section class="section">
           <h3>Escuchado recientemente</h3>
           <div class="track-grid">
-            <!-- Track cards -->
+            <div *ngFor="let item of history" class="track-card" (click)="playTrack(item)">
+              <div class="track-image-container">
+                <img [src]="item.image || 'assets/default-cover.png'" alt="Cover" class="track-image">
+                <div class="play-overlay">▶</div>
+              </div>
+              <div class="track-info">
+                <h3 class="track-name">{{ item.trackName }}</h3>
+                <p class="track-artist">{{ item.artistName }}</p>
+              </div>
+            </div>
+            <div *ngIf="history.length === 0" class="no-history">
+              <p>Aún no has escuchado nada. ¡Ve a Buscar y reproduce algo!</p>
+            </div>
           </div>
         </section>
       </div>
