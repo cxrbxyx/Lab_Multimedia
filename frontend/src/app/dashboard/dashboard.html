@@ -3,6 +3,7 @@
   <aside class="sidebar">
     <div class="logo">
       <h1>🎵 MusicLab</h1>
+      <p class="welcome-msg">¡Hola {{ user?.username || 'Usuario' }}!</p>
     </div>
     
     <nav class="nav-menu">
@@ -16,17 +17,15 @@
       </button>
     </nav>
 
-    <div class="user-profile">
-      <img [src]="user?.avatar || 'assets/default-avatar.png'" alt="Avatar">
-      <span>{{ user?.username }}</span>
-      <button class="logout-btn" (click)="logout()">Salir</button>
-    </div>
   </aside>
 
   <!-- Main Content -->
   <main class="main-content">
     <div class="content-header">
       <h2>{{ currentView === 'home' ? 'Inicio' : 'Buscar' }}</h2>
+      <button class="logout-header-btn" (click)="logout()">
+        Cerrar Sesión
+      </button>
     </div>
 
     <div class="content-body">

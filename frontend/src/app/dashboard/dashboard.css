@@ -25,6 +25,13 @@
   margin: 0;
 }
 
+.welcome-msg {
+  font-size: 14px;
+  color: #b3b3b3;
+  margin: 4px 0 0 0;
+  font-weight: normal;
+}
+
 .nav-menu {
   display: flex;
   flex-direction: column;
@@ -114,6 +121,30 @@
 
 .content-header {
   margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-header-btn {
+  background-color: #e91e63;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 24px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.logout-header-btn:hover {
+  background-color: #c2185b;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .content-header h2 {
