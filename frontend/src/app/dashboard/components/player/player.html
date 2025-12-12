@@ -31,18 +31,19 @@
     </div>
   </div>
 
-  <!-- Botón para expandir -->
-  <div class="player-actions">
-    <button class="control-btn expand-btn" (click)="toggleExpand()">
+  <!-- Lado Derecho: Video y Acciones -->
+  <div class="player-right">
+    <!-- Botón para expandir (visible solo si no está expandido) -->
+    <button *ngIf="!isExpanded" class="control-btn expand-btn" (click)="toggleExpand()">
       ⛶
     </button>
-  </div>
 
-  <!-- Contenedor del Video (Se moverá con CSS) -->
-  <div class="video-wrapper" [class.expanded]="isExpanded">
-    <div id="youtube-player"></div>
-    <!-- Botón para cerrar en modo expandido -->
-    <button *ngIf="isExpanded" class="close-expand-btn" (click)="toggleExpand()">✕</button>
+    <!-- Contenedor del Video -->
+    <div class="video-wrapper" [class.expanded]="isExpanded">
+      <div id="youtube-player"></div>
+      <!-- Botón para cerrar en modo expandido -->
+      <button *ngIf="isExpanded" class="close-expand-btn" (click)="toggleExpand()">✕</button>
+    </div>
   </div>
 
 </div>
