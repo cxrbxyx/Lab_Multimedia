@@ -2,7 +2,7 @@ services:
   # Base de datos MySQL
   mysql:
     image: mysql:8.0
-    container_name: gramola-mysql
+    container_name: musiclab-mysql
     environment:
       MYSQL_DATABASE: lab_multimedia
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
@@ -21,7 +21,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: gramola-backend
+    container_name: musiclab-backend
     ports:
       - "8080:8080"
     environment:
@@ -50,7 +50,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: gramola-frontend
+    container_name: musiclab-frontend
     ports:
       - "4200:4200"
     volumes:
@@ -65,7 +65,7 @@ services:
   # phpMyAdmin para gestión visual de la BD
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: gramola-phpmyadmin
+    container_name: musiclab-phpmyadmin
     ports:
       - "8081:80"
     environment:

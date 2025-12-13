@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MusicService } from '../../../services/music-service';
-import { PlayerService } from '../../../services/player-service'; // <--- Importar
+import { PlayerService } from '../../../services/player-service';
+import { FavoritesService } from '../../../services/favorites-service';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +18,11 @@ export class Search {
   isLoading: boolean = false;
   offset: number = 0;
 
-  constructor(private musicService: MusicService, private playerService: PlayerService) {}
+  constructor(
+    private musicService: MusicService, 
+    private playerService: PlayerService,
+    private favoritesService: FavoritesService
+  ) {}
 
   onSearch() {
     if (!this.query.trim()) return;
@@ -56,7 +61,17 @@ export class Search {
   addToQueue(track: any, event: Event) {
     event.stopPropagation(); // Evitar que se dispare el click de la tarjeta (play)
     this.playerService.addToQueue(track);
-    // Opcional: Mostrar feedback visual (toast, alerta, etc.)
     alert(`"${track.name}" añadida a la cola`);
+  }
+
+  addToFavorites(track: any, event: Event) {
+    event.stopPropagation();
+    this.favoritesService.addFavorite(track.name, track.artist, track.image, track.videoId).subscribe({
+      next: () => alert('Añadido a favoritos ❤️'),
+      error: (err) => {
+        if (err.status === 409) alert('Ya está en tus favoritos');
+        else alert('Error al añadir a favoritos');
+      }
+    });
   }
 }

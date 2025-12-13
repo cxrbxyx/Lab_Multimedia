@@ -15,6 +15,10 @@
         <span class="icon">🔍</span>
         <span>Buscar</span>
       </button>
+      <button (click)="changeView('favorites')" [class.active]="currentView === 'favorites'">
+        <span class="icon">❤️</span>
+        <span>Favoritos</span>
+      </button>
     </nav>
 
   </aside>
@@ -22,7 +26,7 @@
   <!-- Main Content -->
   <main class="main-content">
     <div class="content-header">
-      <h2>{{ currentView === 'home' ? 'Inicio' : 'Buscar' }}</h2>
+      <h2>{{ currentView === 'home' ? 'Inicio' : (currentView === 'search' ? 'Buscar' : 'Favoritos') }}</h2>
       <button class="logout-header-btn" (click)="logout()">
         Cerrar Sesión
       </button>
@@ -42,7 +46,12 @@
               <div class="track-info">
                 <h3 class="track-name">{{ item.trackName }}</h3>
                 <p class="track-artist">{{ item.artistName }}</p>
-                <button class="add-queue-btn" (click)="addToQueue(item, $event)">+ Cola</button>
+                <div class="track-actions-row">
+                  <button class="add-queue-btn" (click)="addToQueue(item, $event)">+ Cola</button>
+                  <button class="fav-btn" (click)="toggleFavorite(item, $event)" [title]="isFavorite(item) ? 'Eliminar de favoritos' : 'Añadir a favoritos'">
+                    {{ isFavorite(item) ? '💔' : '❤️' }}
+                  </button>
+                </div>
               </div>
             </div>
             <div *ngIf="history.length === 0" class="no-history">
@@ -55,6 +64,11 @@
       <!-- Search View -->
       <div *ngIf="currentView === 'search'" class="search-view">
         <app-search></app-search>
+      </div>
+
+      <!-- Favorites View -->
+      <div *ngIf="currentView === 'favorites'" class="favorites-view">
+        <app-favorites></app-favorites>
       </div>
     </div>
   </main>
@@ -83,6 +97,9 @@
           </div>
         </div>
         <div class="queue-actions">
+          <button class="fav-btn-queue" (click)="toggleFavorite(track, $event)" [title]="isFavorite(track) ? 'Eliminar de favoritos' : 'Añadir a favoritos'">
+            {{ isFavorite(track) ? '💔' : '❤️' }}
+          </button>
           <button class="move-btn" (click)="moveTrack(i, i-1)" [disabled]="i === 0">▲</button>
           <button class="move-btn" (click)="moveTrack(i, i+1)" [disabled]="i === queue.length - 1">▼</button>
           <button class="remove-btn" (click)="removeFromQueue(i)">🗑️</button>

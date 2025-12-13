@@ -1,4 +1,4 @@
-# Gramola - Lab Multimedia
+# MusicLab - Lab Multimedia
 
 Aplicación web para la gestión de música en bares y establecimientos, permitiendo a los usuarios gestionar colas de reproducción de manera colaborativa.
 

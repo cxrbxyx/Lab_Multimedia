@@ -10,10 +10,10 @@
 		<relativePath />
 	</parent>
 	<groupId>com.carbayo</groupId>
-	<artifactId>gramola</artifactId>
+	<artifactId>musiclab</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gramola</name>
-	<description>Gramola project for Spring Boot</description>
+	<name>musiclab</name>
+	<description>MusicLab project for Spring Boot</description>
 	<url />
 	<licenses>
 		<license />

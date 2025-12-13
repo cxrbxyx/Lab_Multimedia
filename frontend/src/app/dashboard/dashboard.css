@@ -1,4 +1,5 @@
 @import './components/queue.css';
+@import './dashboard-favorites.css';
 
 .dashboard-container {
   display: grid;

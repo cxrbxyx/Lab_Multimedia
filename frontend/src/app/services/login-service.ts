@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 export interface LoginResponse {
+  token: string;
   email: string;
   barName: string;
   clientId: string;
@@ -40,6 +41,10 @@ export class LoginService {
           this.currentUserSubject.next(response);
         })
       );
+  }
+
+  getToken(): string | null {
+    return this.currentUserSubject.value ? this.currentUserSubject.value.token : null;
   }
 
   logout() {

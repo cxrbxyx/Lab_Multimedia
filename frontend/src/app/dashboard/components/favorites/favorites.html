@@ -1,0 +1,23 @@
+<div class="favorites-container">
+  <h2>Mis Favoritos ❤️</h2>
+  
+  <div *ngIf="isLoading" class="loading">Cargando favoritos...</div>
+  
+  <div *ngIf="!isLoading && favorites.length === 0" class="empty-state">
+    <p>No tienes canciones favoritas aún.</p>
+    <p>¡Añade algunas desde el buscador!</p>
+  </div>
+
+  <div class="favorites-list" *ngIf="favorites.length > 0">
+    <div class="favorite-item" *ngFor="let fav of favorites" (click)="playTrack(fav)">
+      <img [src]="fav.image || 'assets/default-album.png'" alt="Album art" class="album-art">
+      <div class="track-info">
+        <div class="track-name">{{ fav.trackName }}</div>
+        <div class="artist-name">{{ fav.artistName }}</div>
+      </div>
+      <button class="btn-remove" (click)="removeFavorite(fav, $event)" title="Eliminar de favoritos">
+        🗑️
+      </button>
+    </div>
+  </div>
+</div>

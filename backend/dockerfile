@@ -22,4 +22,4 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Ejecutar aplicación
-CMD ["java", "-jar", "target/gramola-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/musiclab-0.0.1-SNAPSHOT.jar"]

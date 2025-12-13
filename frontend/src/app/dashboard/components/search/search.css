@@ -99,8 +99,14 @@
   text-overflow: ellipsis;
 }
 
-.add-queue-btn {
+.track-actions {
+  display: flex;
+  gap: 8px;
   margin-top: 8px;
+}
+
+.add-queue-btn {
+  flex: 1;
   background-color: transparent;
   border: 1px solid #b3b3b3;
   color: #b3b3b3;
@@ -109,13 +115,32 @@
   font-size: 12px;
   cursor: pointer;
   transition: all 0.2s;
-  width: 100%;
 }
 
 .add-queue-btn:hover {
   border-color: white;
   color: white;
   background-color: rgba(255,255,255,0.1);
+}
+
+.add-fav-btn {
+  background-color: transparent;
+  border: 1px solid #b3b3b3;
+  color: #b3b3b3;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-fav-btn:hover {
+  border-color: #1db954;
+  color: #1db954;
+  transform: scale(1.1);
 }
 
 .track-artist {

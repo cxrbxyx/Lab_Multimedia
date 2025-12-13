@@ -21,7 +21,10 @@
       <div class="track-info">
         <h3 class="track-name">{{ track.name }}</h3>
         <p class="track-artist">{{ track.artist }}</p>
-        <button class="add-queue-btn" (click)="addToQueue(track, $event)">+ Cola</button>
+        <div class="track-actions">
+          <button class="add-queue-btn" (click)="addToQueue(track, $event)">+ Cola</button>
+          <button class="add-fav-btn" (click)="addToFavorites(track, $event)">❤️</button>
+        </div>
       </div>
     </div>
   </div>

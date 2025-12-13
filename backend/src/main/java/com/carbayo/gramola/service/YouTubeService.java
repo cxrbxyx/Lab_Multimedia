@@ -23,7 +23,7 @@ public class YouTubeService {
     @Autowired
     private VideoCacheRepository videoCacheRepository;
 
-    private static final String APPLICATION_NAME = "Gramola";
+    private static final String APPLICATION_NAME = "MusicLab";
 
     public String getVideoId(String trackName, String artistName) {
         String query = trackName + " " + artistName + " audio";
